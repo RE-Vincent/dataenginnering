@@ -11,4 +11,5 @@
 #### Generar una estructura relacional entre los distintos repositorios de información.
 #### Automatizar procesos mecánicos y generar variables que sean útiles para el área de comercial y markting.
 
+### Estructura
 https://github.com/RE-Vincent/dataenginnering/blob/6f6fc6338761d126c610feeb0e2434f8be80d2c3/estructura.png
