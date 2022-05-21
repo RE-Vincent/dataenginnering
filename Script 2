@@ -1,0 +1,55 @@
+orders=orders.rename(columns={'order_customer_id':'customer_id'})
+order_items=order_items.rename(columns={'order_item_order_id':'order_id'})
+products=products.rename(columns={'product_id':'order_item_product_id'})
+categories=categories.rename(columns={'category_id':'product_category_id'})
+departments=departments.rename(columns={'departament_id':'category_departament_id'})
+sets1=pd.merge(customer, orders, on='customer_id')
+sets1.head()
+sets2=pd.merge(sets1, order_items, on='order_id')
+sets2.head()
+sets3=pd.merge(sets2, products, on='order_item_product_id')
+sets3.head()
+sets4=pd.merge(sets3, categories, on='product_category_id')
+sets4.head()
+condensado=pd.merge(sets4, departments, on='category_departament_id')
+condensado.head()
+#Importamos librerias a usar
+import pandas as pd
+import numpy as np
+# Visualización de los datos
+import matplotlib.pyplot as plt
+import seaborn as sns
+%matplotlib inline
+plt.style.use('ggplot')
+
+import os
+import scipy as sp
+
+# Tratamiento y manipulación de Fechas
+import datetime
+
+#Visualizamos todas las columnas
+pd.set_option('display.max_columns',None)
+
+# No presentar advertencia
+import warnings
+warnings.filterwarnings("ignore")
+%matplotlib inline
+condensado.describe().T
+duplicates = []
+for col in range(condensado.shape[1]):
+    contents = condensado.iloc[:, col]
+    
+    for comp in range(col + 1, condensado.shape[1]):
+        if contents.equals(condensado.iloc[:, comp]):
+            duplicates.append(comp)
+
+duplicates = np.unique(duplicates).tolist()
+duplicates
+products=products.drop_duplicates()
+condensado.isnull().sum()
+condensado=condensado.drop(columns=['product_description'])
+condensado_mask=condensado.loc[:,['order_item_quantity','order_item_subtotal','product_price']] #, 'order_item_subtotal','product_price']
+#condensado_mask
+condensado_mask.hist(figsize=(20,14))
+plt.show()
