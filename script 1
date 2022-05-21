@@ -1,0 +1,133 @@
+import pandas as pd
+import numpy as np
+import os
+rut='C:/Users/xxxx/xxxxx/all/'
+data=os.listdir(rut)
+categories=pd.read_csv(rut+'categories',sep='|',header=None)
+categories.columns=['category_id','category_departament_id','category_name']
+dic_nulos=categories.isnull().sum().to_dict()
+list_nulos=[]
+for i, j in dic_nulos.items():
+  if j!=0:
+    list_nulos.append(i)
+
+# buscamos columnas duplicadas
+duplicates = []
+for col in range(categories.shape[1]):
+    contents = categories.iloc[:, col]
+    
+    for comp in range(col + 1, categories.shape[1]):
+        if contents.equals(categories.iloc[:, comp]):
+            duplicates.append(comp)
+
+duplicates = np.unique(duplicates).tolist()
+categories=categories.drop_duplicates()
+#list_nulos
+categories.head()
+customer=pd.read_csv(rut+'customer',sep='|',header=None)
+customer.columns=['customer_id','customer_fname','customer_lname','customer_email','customer_password','customer_street',
+         'customer_state','customer_city','customer_zipcode']
+customer['customer_zipcode']=customer['customer_zipcode'].astype('object')
+dic_nulos=customer.isnull().sum().to_dict()
+list_nulos=[]
+for i, j in dic_nulos.items():
+    if j!=0:
+        list_nulos.append(i)
+
+# buscamos columnas duplicadas
+duplicates = []
+for col in range(customer.shape[1]):
+    contents = customer.iloc[:, col]
+    
+    for comp in range(col + 1, customer.shape[1]):
+        if contents.equals(customer.iloc[:, comp]):
+            duplicates.append(comp)
+
+duplicates = np.unique(duplicates).tolist()
+customer=customer.drop_duplicates()
+customer.head()
+departments=pd.read_csv(rut+'departments',sep='|',header=None)
+departments.columns=['departament_id','department_name']
+dic_nulos=departments.isnull().sum().to_dict()
+list_nulos=[]
+for i, j in dic_nulos.items():
+    if j!=0:
+        list_nulos.append(i)
+
+# buscamos columnas duplicadas
+duplicates = []
+for col in range(departments.shape[1]):
+    contents = departments.iloc[:, col]
+    
+    for comp in range(col + 1, departments.shape[1]):
+        if contents.equals(departments.iloc[:, comp]):
+            duplicates.append(comp)
+
+duplicates = np.unique(duplicates).tolist()
+departments=departments.drop_duplicates()
+departments.head()
+orders=pd.read_csv(rut+'orders',sep='|',header=None)
+orders.columns=['order_id','order_date','order_customer_id','order_status']
+orders['order_date']=orders['order_date'].astype('datetime64[ns]')
+dic_nulos=orders.isnull().sum().to_dict()
+list_nulos=[]
+for i, j in dic_nulos.items():
+    if j!=0:
+        list_nulos.append(i)
+
+# buscamos columnas duplicadas
+duplicates = []
+for col in range(orders.shape[1]):
+    contents = orders.iloc[:, col]
+    
+    for comp in range(col + 1, orders.shape[1]):
+        if contents.equals(orders.iloc[:, comp]):
+            duplicates.append(comp)
+
+duplicates = np.unique(duplicates).tolist()
+orders=orders.drop_duplicates()
+orders.head()
+order_items=pd.read_csv(rut+'order_items',sep='|',header=None)
+order_items.columns=['order_item_id','order_item_order_id','order_item_product_id','order_item_quantity','order_item_subtotal',
+               'order_item_prductprice']
+dic_nulos=order_items.isnull().sum().to_dict()
+list_nulos=[]
+for i, j in dic_nulos.items():
+    if j!=0:
+        list_nulos.append(i)
+
+# buscamos columnas duplicadas
+duplicates = []
+for col in range(order_items.shape[1]):
+    contents = order_items.iloc[:, col]
+    
+    for comp in range(col + 1, order_items.shape[1]):
+        if contents.equals(order_items.iloc[:, comp]):
+            duplicates.append(comp)
+
+duplicates = np.unique(duplicates).tolist()
+order_items=order_items.drop_duplicates()
+order_items.head()
+products=pd.read_csv(rut+'products',sep='|',header=None)
+products.columns=['product_id','product_category_id','product_name','product_description','product_price','product_image']
+products['product_description']=products['product_description'].astype('object')
+dic_nulos=products.isnull().sum().to_dict()
+list_nulos=[]
+for i, j in dic_nulos.items():
+    if j!=0:
+        list_nulos.append(i)
+
+# buscamos columnas duplicadas
+duplicates = []
+for col in range(products.shape[1]):
+    contents = products.iloc[:, col]
+    
+    for comp in range(col + 1, products.shape[1]):
+        if contents.equals(products.iloc[:, comp]):
+            duplicates.append(comp)
+
+duplicates = np.unique(duplicates).tolist()
+products=products.drop_duplicates()
+products.head()
+for dat in data:
+    eval(dat).to_csv(ruta2 + dat + '.csv', sep='|',index=False)
