@@ -10,3 +10,5 @@
 #### Desarrollar una base de datos debidamente organizada y estructurada.
 #### Generar una estructura relacional entre los distintos repositorios de información.
 #### Automatizar procesos mecánicos y generar variables que sean útiles para el área de comercial y markting.
+
+https://raw.githubusercontent.com/RE-Vincet/dataenginnering/master/assets/estructura.png
